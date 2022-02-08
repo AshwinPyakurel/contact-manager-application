@@ -19,15 +19,15 @@ router.post('/',(req,res) =>{
             rowCount = result[0].count;
             if(rowCount === 1){ 
                 const token = jwt.sign({count: rowCount},secretKey,{expiresIn: "2h"});
+                res.cookie('auth',token);                
                 res.json({data: token, success: true, message: 'Ok for login',status:200})
             }else{
                 res.json({data: rowCount, success: true, message: 'Not Ok for login',status:200})
             }
     });
           }
-    });
-
-    
+    }); 
 });
+
 
 module.exports = router;

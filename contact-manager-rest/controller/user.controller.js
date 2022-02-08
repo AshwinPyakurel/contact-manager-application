@@ -4,7 +4,7 @@ const router  = require('express').Router();
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-router.post('/', (req,res)=>{
+router.post('/', (req,res)=>{    
     postUsername = req.body.username;
     postPassword = req.body.password;
     postConfirmpassword = req.body.confirmPassword;  
@@ -17,7 +17,7 @@ router.post('/', (req,res)=>{
                 }else{
                     knex('users').insert([
                     {username: postUsername, password :hash},                
-                    ]).then((result)=>{
+                    ]).then(()=>{
                     res.json({ success: true, message: 'ok'})
                     })
                 }

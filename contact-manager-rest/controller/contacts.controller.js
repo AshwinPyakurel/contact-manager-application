@@ -1,17 +1,17 @@
 const router  = require('express').Router();
-const multer = require('multer');
 const  uploadImage = require('../helpers/imageUpload');
 const db = require('../knexfile');
-const { multerUploads } = require('../middleware/multer');
 const knex = require('knex')(db);
-const upload = multer();
-
-router.get('/',(req,res,next)=>{
-    knex('contacts').select('*').then((result)=>{        
+const authenticate = require('../middleware/authenticate')
+router.get('/',authenticate,(req,res,)=>{
+    knex('contacts').select('*').then((result)=>{               
         res.json({data:result,status:200,message:"OK"})
     });
 });
-router.post('/',(req,res)=>{
+router.get('/hello',(req,res,)=>{
+    res.json({status:200,message:"hello"})
+});
+router.post('/',authenticate,(req,res)=>{
     console.log('hello');
     console.log(req.body);
     postName = req.body.name;
@@ -28,7 +28,7 @@ router.post('/',(req,res)=>{
     })
 });
 
-router.put('/:id',(req,res)=>{
+router.put('/:id',authenticate,(req,res)=>{
     const {id} = req.params;
     console.log(id);
     postName = req.body.name;
@@ -45,7 +45,7 @@ router.put('/:id',(req,res)=>{
     })
 });
 
-router.delete('/:id',(req,res)=>{
+router.delete('/:id',authenticate,(req,res)=>{
     const {id} = req.params;
     knex('contacts').where({id:id}).del().then((result=>{
         res.json({status:200,message:"ok"})
