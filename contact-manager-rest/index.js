@@ -5,9 +5,10 @@ var cookieParser = require('cookie-parser')
 const LOGIN_API_ROUTE = require('./routes/routes.js');
 var bodyParser = require("body-parser");
 const dotenv = require('dotenv').config();
+const cors = require('cors');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(cors());
 app.use(cookieParser());
 
 app.use("/api", LOGIN_API_ROUTE);
