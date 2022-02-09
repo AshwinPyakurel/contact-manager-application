@@ -22,7 +22,7 @@ const EditContact = () =>{
 
     
     return(
-        <div className="container">
+        <div className="container">  
             {currentContact ?( 
                 <>
             <div className="row">
